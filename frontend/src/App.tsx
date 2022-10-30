@@ -1,35 +1,23 @@
-import React from 'react';
-import './App.css';
-
-const BACKEND_API_URL = process.env.BACKEND_API_URL || 'http://backend.localhost';
-
-const fetchContent = async (updateContent: (content: string) => void) => {
-  const response = await fetch(`${BACKEND_API_URL}/greetings/hello`,{
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-  const data = await response.json();
-  updateContent(data.content);
-};
+import React from "react";
+import URLForm from "./Form";
+import CopyText from "./CopyText";
+import "./App.css";
 
 const App: React.FC = () => {
-  const [content, updateContent] = React.useState('Waiting for a response from Rails...');
-
-  React.useEffect(() => {
-    fetchContent(updateContent);
-  }, []);
+  const [shortended, updateShortened] = React.useState(null);
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          {content}
-        </p>
+        <div>
+          <strong>UR</strong><em>L</em>ess
+        </div>
       </header>
+
+      {!shortended && <URLForm updateShortened={updateShortened} />}
+      {shortended && <CopyText url={shortended} updateShortened={updateShortened} />}
     </div>
   );
-}
+};
 
 export default App;
