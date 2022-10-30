@@ -11,10 +11,11 @@ Begin by installing and running [Docker Desktop](https://www.docker.com/products
 You will also need to have [docker-compose CLI](https://github.com/docker/compose-cli#getting-started) tools installed on your machine.
 
 ### Setup
-First `cd` into the URLess root directory
+
+Clone this repo to your local machin and `cd` into the urless root directory.
 
 ```shell
-$ cd /urless
+$ cd urless/
 ```
 
 #### Backend
