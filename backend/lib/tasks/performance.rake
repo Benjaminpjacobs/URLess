@@ -13,7 +13,7 @@ namespace :performance do
 
     Benchmark.bmbm do |x|
       x.report("#{limit} Requests") do
-        urls.each do |url| 
+        urls.each do |url|
           `curl -X POST -s -o /dev/null -H "Content-Type: application/json" -d '{"url": { "original_url": "#{url}" } }' http://localhost:3000`
         end
       end

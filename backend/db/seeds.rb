@@ -6,9 +6,7 @@ loading_indicator = "[" + "".ljust(50) + "]\r"
 print loading_indicator
 
 CSV.foreach(Rails.root.join('db', 'url_list.csv'), headers: true, header_converters: :symbol).each_with_index do |row, idx|
-  original_url = "http://#{row[:root_domain]}"
-  short_id     = UrlShortener.call(original_url)
-  ShortUrl.find_or_create_by(short_id: short_id, original_url: original_url)
+  ShortUrlCreationService.call(original_url: "http://#{row[:root_domain]}")
 
   # Print loading indicator
   if idx % 10 == 0 && idx != 0
