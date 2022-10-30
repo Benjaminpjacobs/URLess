@@ -20,7 +20,8 @@ $ cd urless/
 
 #### Backend
 ```shell
-$ docker-compose run backend bin/rails db:create db:migrate db:seed db:test:prepare dev:cache
+$ docker-compose run backend bin/rails db:create db:migrate db:seed db:test:prepare
+$ docker-compose run backend bin/rails dev:cache
 ```
 This command will build the backend container as well as create, migrate and seed the docker PG instance. Additionally it will setup a test database and enable rails caching.
 
@@ -94,6 +95,13 @@ A caching layer was added to the redirect logic to make subsequent reads more pe
 There is a cost to the cache write for unique redirects. Another option was to write through to the cache when the short urls were generated but the main concern was duplicating the database entirely for a series of cache entries that may never be read. As a beginning step the choice was made to cache on read - but this could be readdressed to improve performance if required.
 
 Additionally, the choice to use `301`(Permanent Redirect) allows us to avoid duplicate requests through the redirctor from a single browser but does not allow us to collect accurate metrics on the usage of the service. If analytics on usage were vital we could switch to `307`(Temporary Redirect) so subsequent browser requests could still be measured.
+
+### Security
+There are no specific considerations put in place here to handle malicious actors beyond those inherent in the design. The random ID assigment makes URL guessing near impossible and the API has standard rails protections with regard to prepared insert statements and strong params.
+
+Additionally a validation was implemented to ensure we would not get into a redirect loop by preventing users from using the redirect host and port when creating a short url.
+
+One area that could be improved here is a rate limiter that would prevent any sort of denial of service style attacks against the create or redirect endpoit. It was decided that this was out of scope for this POC implementation.
 
 ### Frontend/UI
 
