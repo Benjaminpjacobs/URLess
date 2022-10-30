@@ -40,5 +40,3 @@ namespace :performance do
     end
   end
 end
-
-

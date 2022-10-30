@@ -1,5 +1,7 @@
 # URLess - Url Shortener
 
+Make it shorter.
+
 ## Usage
 
 The intended way to interact with this application is via docker.
