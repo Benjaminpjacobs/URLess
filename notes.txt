@@ -1,0 +1,25 @@
+Further Detailed  in the README.
+
+Tl;Dr for Setup, Usage and Specs:
+
+1. install docker desktop and docker-compose cli if not already installed
+2. `docker-compose run backend bin/rails db:create db:migrate db:seed db:test:prepare dev:cache` to setup backend
+3. `docker-compose run frontend yarn install` to setup frontend
+4. `docker-compose up` to run the application
+5. Navigate to `http://localhost:8080` to interact with the application
+6. `docker-compose run backend rake test` to run backend specs
+7. `docker-compose run frontend yarn test` to run frontend specs
+8. `docker exec -it -e REQUESTS=10 backend bin/rails performance:redirect` to run redirect performance benchmark
+9. `docker exec -it -e REQUESTS=10 backend bin/rails performance:create` to run create performance benchmark
+
+
+Basic Assumptions and Trade Offs:
+1) There were no restrictions on the short url length. My decision was to keep this simple with a consistent 11
+character identifier that would reduce the possibility of collisions to practically zero. Other solutions were considered
+that could reduce the character count if required. Some more information on this in the readme.
+2) This will be run in a desktop browser with a mouse and keyboard. Minimal considerations made for mobile first design,
+screen readers or keyboard navigation as a matter of time constraint.
+3) Peformance considerations will be made with the docker system limitations in mind. There are many ways to scale performance
+horizontally but which are impractical for a local/development proof of concept.
+
+Looking forward to discussing any of this further.
