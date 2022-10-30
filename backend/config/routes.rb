@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  get 'greetings/hello'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post '/', to: "short_urls#create"
+  get '/:short_id', to: "short_urls#redirect", constraints: { id: /[A-Z]\d{7}/ }
+
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server'
 end
