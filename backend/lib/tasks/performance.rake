@@ -4,7 +4,7 @@ require 'net/http'
 namespace :performance do
   task create: [:environment] do
     # REQUESTS=25 rails performance:post
-    limit = ENV.fetch("REQUESTS", 10)
+    limit = ENV.fetch("REQUESTS", 10).to_i
     puts "Preparing to run benchmark with #{limit} requests\n\n"
 
     urls = limit.times.map do |i|
@@ -27,7 +27,7 @@ namespace :performance do
     puts "Clearing cache..."
     Rails.cache.clear
 
-    limit = ENV.fetch("REQUESTS", 10)
+    limit = ENV.fetch("REQUESTS", 10).to_i
     puts "Preparing to run benchmark with #{limit} requests\n\n"
 
     Rails.application.eager_load!
